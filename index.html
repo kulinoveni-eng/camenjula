@@ -28,7 +28,7 @@ body{
 
 .card{
   width:100%;
-  max-width:360px;
+  max-width:380px;
   padding:30px 25px;
   border-radius:25px;
   background:rgba(255,255,255,0.12);
@@ -36,10 +36,33 @@ body{
   box-shadow:0 20px 50px rgba(0,0,0,0.45);
   text-align:center;
   color:white;
+  position:relative;
+}
+
+.popup{
+  position:absolute;
+  top:-15px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#fff;
+  color:#111;
+  padding:10px 15px;
+  border-radius:15px;
+  font-size:13px;
+  font-weight:bold;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  animation:pulse 1.8s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:translateX(-50%) scale(1);}
+  50%{transform:translateX(-50%) scale(1.05);}
+  100%{transform:translateX(-50%) scale(1);}
 }
 
 .icon{
   font-size:50px;
+  margin-top:20px;
   margin-bottom:10px;
 }
 
@@ -62,6 +85,13 @@ h1{
   color:#7CFFB2;
   font-size:14px;
   margin-bottom:15px;
+}
+
+.timer{
+  margin-top:12px;
+  color:#FFD54F;
+  font-weight:bold;
+  font-size:15px;
 }
 
 .avatars{
@@ -100,16 +130,14 @@ button{
     box-shadow:0 0 35px rgba(255,75,75,.9);
   }
 }
-
-button:active{
-  transform:scale(0.98);
-}
 </style>
 </head>
 
 <body>
 
 <div class="card">
+  <div class="popup">💬 Emily sent you a message</div>
+
   <div class="icon">💬</div>
   <h1>Live Chat</h1>
   <p class="subtitle">Connect with someone instantly</p>
@@ -124,10 +152,22 @@ button:active{
 
   <p class="waiting">Emily, Sofia, Anna are waiting...</p>
 
+  <div class="timer">⏳ Only <span id="count">27</span> seconds left</div>
+
+  <br>
+
   <button onclick="startChat()">Start Chat</button>
 </div>
 
 <script>
+let count = 27;
+setInterval(() => {
+  if(count > 3){
+    count--;
+    document.getElementById("count").innerText = count;
+  }
+}, 1000);
+
 function startChat() {
   show_10981703('pop').then(() => {
     openMiniApp();
