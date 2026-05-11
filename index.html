@@ -5,25 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Camjulia Live Chat</title>
 
-<script src="//libtl.com/sdk.js"
-        data-zone="10981703"
-        data-sdk="show_10981703"></script>
+<script src="//libtl.com/sdk.js" data-zone="10981703" data-sdk="show_10981703"></script>
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Arial,sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#071b24,#123847,#285d6f);
+  background:linear-gradient(135deg,#071b24,#123847,#285d6f,#071b24);
+  background-size:400% 400%;
+  animation:bgMove 8s infinite alternate;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:20px;
+}
+
+@keyframes bgMove{
+  from{background-position:left}
+  to{background-position:right}
 }
 
 .card{
@@ -31,9 +31,9 @@ body{
   max-width:380px;
   padding:30px 25px;
   border-radius:25px;
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,.12);
   backdrop-filter:blur(15px);
-  box-shadow:0 20px 50px rgba(0,0,0,0.45);
+  box-shadow:0 20px 50px rgba(0,0,0,.45);
   text-align:center;
   color:white;
   position:relative;
@@ -41,102 +41,123 @@ body{
 
 .popup{
   position:absolute;
-  top:-15px;
+  top:-28px;
   left:50%;
   transform:translateX(-50%);
-  background:#fff;
+  background:white;
   color:#111;
-  padding:10px 15px;
-  border-radius:15px;
-  font-size:13px;
+  padding:12px 18px;
+  border-radius:18px;
+  font-size:15px;
   font-weight:bold;
-  box-shadow:0 8px 20px rgba(0,0,0,.25);
-  animation:pulse 1.8s infinite;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+  animation:pulse 1.5s infinite;
+  width:max-content;
+  max-width:90%;
 }
 
 @keyframes pulse{
-  0%{transform:translateX(-50%) scale(1);}
-  50%{transform:translateX(-50%) scale(1.05);}
-  100%{transform:translateX(-50%) scale(1);}
+  0%{transform:translateX(-50%) scale(1)}
+  50%{transform:translateX(-50%) scale(1.06)}
+  100%{transform:translateX(-50%) scale(1)}
 }
 
-.icon{
-  font-size:50px;
-  margin-top:20px;
-  margin-bottom:10px;
-}
-
-h1{
-  font-size:34px;
-  margin-bottom:8px;
-}
-
-.subtitle{
-  opacity:.85;
-  font-size:14px;
-  margin-bottom:15px;
-}
+.icon{font-size:60px;margin-top:25px;margin-bottom:10px}
+h1{font-size:40px;margin-bottom:10px}
+.subtitle{opacity:.85;font-size:16px;margin-bottom:15px}
 
 .badge{
   display:inline-block;
-  padding:8px 14px;
+  padding:10px 18px;
   border-radius:999px;
-  background:rgba(0,255,120,0.15);
+  background:rgba(0,255,120,.15);
   color:#7CFFB2;
-  font-size:14px;
-  margin-bottom:15px;
-}
-
-.timer{
-  margin-top:12px;
-  color:#FFD54F;
-  font-weight:bold;
-  font-size:15px;
+  font-size:18px;
+  margin-bottom:22px;
 }
 
 .avatars{
   display:flex;
   justify-content:center;
-  margin:14px 0;
+  margin:14px 0 18px;
   font-size:0;
 }
 
 .avatars img{
-  width:54px;
-  height:54px;
+  width:58px;
+  height:58px;
   border-radius:50%;
   object-fit:cover;
   border:3px solid white;
-  margin:0 -6px;
+  margin:0 -7px;
   box-shadow:0 6px 15px rgba(0,0,0,.35);
 }
 
 .waiting{
-  font-size:14px;
-  opacity:.9;
-  margin-bottom:20px;
+  font-size:16px;
+  opacity:.95;
+  margin-bottom:18px;
+}
+
+.timer{
+  margin:12px 0 20px;
+  color:#FFD54F;
+  font-weight:bold;
+  font-size:18px;
 }
 
 button{
   width:100%;
-  padding:16px;
+  padding:18px;
   border:none;
-  border-radius:16px;
+  border-radius:18px;
   background:linear-gradient(135deg,#ff2d55,#ff5e3a);
   color:white;
-  font-size:20px;
+  font-size:22px;
   font-weight:bold;
   cursor:pointer;
-  animation:glow 1.5s infinite alternate;
+  animation:strongGlow 1s infinite alternate, shake 3s infinite;
 }
 
-@keyframes glow{
-  from{
-    box-shadow:0 0 15px rgba(255,75,75,.5);
-  }
-  to{
-    box-shadow:0 0 35px rgba(255,75,75,.9);
-  }
+@keyframes strongGlow{
+  from{box-shadow:0 0 18px rgba(255,75,75,.6)}
+  to{box-shadow:0 0 45px rgba(255,75,75,1)}
+}
+
+@keyframes shake{
+  0%,90%,100%{transform:translateX(0)}
+  92%{transform:translateX(-2px)}
+  94%{transform:translateX(2px)}
+  96%{transform:translateX(-2px)}
+  98%{transform:translateX(2px)}
+}
+
+.exitBox{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.65);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.exitContent{
+  width:90%;
+  max-width:330px;
+  background:white;
+  color:#111;
+  padding:25px;
+  border-radius:22px;
+  text-align:center;
+}
+
+.exitContent h2{margin-bottom:10px}
+.exitContent p{margin-bottom:18px;color:#555}
+
+.exitContent button{
+  animation:none;
+  font-size:18px;
 }
 </style>
 </head>
@@ -144,26 +165,33 @@ button{
 <body>
 
 <div class="card">
-<div class="popup">💋 CamenJulia sent you a message</div>
+  <div class="popup" id="notify">💋 CamenJulia sent you a message</div>
 
   <div class="icon">💬</div>
   <h1>Live Chat</h1>
   <p class="subtitle">Connect with someone instantly</p>
 
-  <div class="badge">🟢 2,341 online now</div>
+  <div class="badge">🟢 <span id="online">2341</span> online now</div>
 
-<div class="avatars">
-  <img src="girl1.jpg">
-  <img src="girl2.jpg">
-  <img src="girl3.jpg">
-</div>
+  <div class="avatars">
+    <img src="girl1.jpg">
+    <img src="girl2.jpg">
+    <img src="girl3.jpg">
+  </div>
 
-<p class="waiting">💋 CamenJulia is waiting for you...</p>
+  <p class="waiting">💋 CamenJulia is waiting for you...</p>
+
   <div class="timer">⏳ Only <span id="count">27</span> seconds left</div>
 
-  <br>
-
   <button onclick="startChat()">Start Chat</button>
+</div>
+
+<div class="exitBox" id="exitBox">
+  <div class="exitContent">
+    <h2>Wait! 💬</h2>
+    <p>CamenJulia is still waiting for you.</p>
+    <button onclick="startChat()">Continue Chat</button>
+  </div>
 </div>
 
 <script>
@@ -174,6 +202,34 @@ setInterval(() => {
     document.getElementById("count").innerText = count;
   }
 }, 1000);
+
+let online = 2341;
+setInterval(() => {
+  online += Math.floor(Math.random() * 9) + 1;
+  document.getElementById("online").innerText = online.toLocaleString();
+}, 3000);
+
+const messages = [
+  "💋 CamenJulia sent you a message",
+  "🔥 CamenJulia is online now",
+  "💬 New message waiting for you",
+  "❤️ Someone wants to chat",
+  "👀 CamenJulia is typing..."
+];
+
+let msgIndex = 0;
+setInterval(() => {
+  msgIndex = (msgIndex + 1) % messages.length;
+  document.getElementById("notify").innerText = messages[msgIndex];
+}, 5000);
+
+let exitShown = false;
+document.addEventListener("mouseleave", () => {
+  if(!exitShown){
+    exitShown = true;
+    document.getElementById("exitBox").style.display = "flex";
+  }
+});
 
 function startChat() {
   show_10981703('pop').then(() => {
