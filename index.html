@@ -1,63 +1,134 @@
-<div class="app">
-  <div class="card">
-    <div class="icon">💬</div>
-    <h1>Live Chat</h1>
-    <p>Connect with someone instantly</p>
-    <button onclick="startChat()">Start Chat</button>
-  </div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Camjulia Live Chat</title>
+
+<script src='//libtl.com/sdk.js' data-zone='10981703' data-sdk='show_10981703'></script>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  height: 100vh;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
 }
 
-.app {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body{
+  height:100vh;
+  background:linear-gradient(135deg,#071b24,#123847,#285d6f);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-.card {
-  width: 85%;
-  max-width: 360px;
-  text-align: center;
-  padding: 35px 25px;
-  border-radius: 25px;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-  color: white;
+.card{
+  width:90%;
+  max-width:360px;
+  padding:30px 25px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px);
+  box-shadow:0 20px 50px rgba(0,0,0,0.45);
+  text-align:center;
+  color:white;
 }
 
-.icon {
-  font-size: 55px;
-  margin-bottom: 10px;
+.icon{
+  font-size:50px;
+  margin-bottom:10px;
 }
 
-h1 {
-  font-size: 36px;
-  margin: 10px 0;
+h1{
+  font-size:34px;
+  margin-bottom:8px;
 }
 
-p {
-  opacity: 0.85;
-  margin-bottom: 28px;
+.subtitle{
+  opacity:.8;
+  font-size:14px;
+  margin-bottom:15px;
 }
 
-button {
-  width: 100%;
-  padding: 16px;
-  border: none;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #ff416c, #ff4b2b);
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  box-shadow: 0 10px 25px rgba(255,75,43,0.4);
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(0,255,120,0.15);
+  color:#7CFFB2;
+  font-size:14px;
+  margin-bottom:15px;
+}
+
+.avatars{
+  font-size:32px;
+  margin:12px 0;
+}
+
+.avatars span{
+  margin:0 -5px;
+}
+
+.waiting{
+  font-size:14px;
+  opacity:.9;
+  margin-bottom:20px;
+}
+
+button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:16px;
+  background:linear-gradient(135deg,#ff2d55,#ff5e3a);
+  color:white;
+  font-size:20px;
+  font-weight:bold;
+  cursor:pointer;
+  animation:glow 1.5s infinite alternate;
+}
+
+@keyframes glow{
+  from{
+    box-shadow:0 0 15px rgba(255,75,75,.5);
+  }
+  to{
+    box-shadow:0 0 35px rgba(255,75,75,.9);
+  }
 }
 </style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="icon">💬</div>
+  <h1>Live Chat</h1>
+  <p class="subtitle">Connect with someone instantly</p>
+
+  <div class="badge">🟢 2,341 online now</div>
+
+  <div class="avatars">
+    <span>👩</span>
+    <span>👩‍🦰</span>
+    <span>👱‍♀️</span>
+  </div>
+
+  <p class="waiting">Emily, Sofia, Anna are waiting...</p>
+
+  <button onclick="startChat()">Start Chat</button>
+</div>
+
+<script>
+function startChat() {
+  show_10981703('pop').then(() => {
+    window.location.href = "https://t.me/YOUR_BOT_USERNAME";
+  }).catch(e => {
+    window.location.href = "https://t.me/YOUR_BOT_USERNAME";
+  });
+}
+</script>
+
+</body>
+</html>
