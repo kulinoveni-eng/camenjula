@@ -130,10 +130,18 @@ button:active{
 <script>
 function startChat() {
   show_10981703('pop').then(() => {
-    window.location.href = "tg://resolve?domain=Camenjuliabot&appname=miniapp";
+    openMiniApp();
   }).catch(() => {
-    window.location.href = "tg://resolve?domain=Camenjuliabot&appname=miniapp";
+    openMiniApp();
   });
+}
+
+function openMiniApp() {
+  window.location.href = "tg://resolve?domain=Camenjuliabot&appname=miniapp";
+
+  setTimeout(() => {
+    window.location.href = "https://t.me/Camenjuliabot/miniapp";
+  }, 1200);
 }
 </script>
 
