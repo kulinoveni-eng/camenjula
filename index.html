@@ -95,12 +95,20 @@ h1{
 }
 
 .avatars{
-  font-size:32px;
-  margin:12px 0;
+  display:flex;
+  justify-content:center;
+  margin:14px 0;
+  font-size:0;
 }
 
-.avatars span{
-  margin:0 -5px;
+.avatars img{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid white;
+  margin:0 -6px;
+  box-shadow:0 6px 15px rgba(0,0,0,.35);
 }
 
 .waiting{
@@ -144,11 +152,11 @@ button{
 
   <div class="badge">🟢 2,341 online now</div>
 
-  <div class="avatars">
-    <span>👩</span>
-    <span>👩‍🦰</span>
-    <span>👱‍♀️</span>
-  </div>
+<div class="avatars">
+  <img src="girl1.jpg">
+  <img src="girl2.jpg">
+  <img src="girl3.jpg">
+</div>
 
 <p class="waiting">💋 CamenJulia is waiting for you...</p>
   <div class="timer">⏳ Only <span id="count">27</span> seconds left</div>
