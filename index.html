@@ -228,20 +228,76 @@
 
   let sendCount = 0;
 
+  function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  // Online random 8,000 - 15,000
   function updateOnline() {
-    const num = Math.floor(Math.random() * (2450 - 2280 + 1)) + 2280;
+    const num = randomNumber(8000, 15000);
     document.getElementById("onlineCount").textContent = num.toLocaleString();
   }
 
   updateOnline();
   setInterval(updateOnline, 3000);
 
-  let timeLeft = 25;
-  setInterval(() => {
+  // Countdown random reset 18 - 45 sec
+  let timeLeft = randomNumber(18, 45);
+
+  function updateCountdown() {
     timeLeft--;
-    if (timeLeft <= 0) timeLeft = 25;
+    if (timeLeft <= 0) {
+      timeLeft = randomNumber(18, 45);
+    }
     document.getElementById("countdown").textContent = timeLeft;
-  }, 1000);
+  }
+
+  document.getElementById("countdown").textContent = timeLeft;
+  setInterval(updateCountdown, 1000);
+
+  // Fake popup notifications
+  const names = ["Jessica", "Emily", "Sophia", "Mia", "Olivia", "Ashley", "Emma"];
+  const actions = [
+    "just started chatting 💬",
+    "unlocked live chat 🔥",
+    "sent a private message 💋",
+    "is online now 🟢"
+  ];
+
+  function showFakePopup() {
+    const old = document.getElementById("fakePopup");
+    if (old) old.remove();
+
+    const popup = document.createElement("div");
+    popup.id = "fakePopup";
+    popup.textContent =
+      "🔥 " +
+      names[randomNumber(0, names.length - 1)] +
+      " " +
+      actions[randomNumber(0, actions.length - 1)];
+
+    popup.style.position = "fixed";
+    popup.style.left = "50%";
+    popup.style.bottom = "25px";
+    popup.style.transform = "translateX(-50%)";
+    popup.style.background = "rgba(0,0,0,0.88)";
+    popup.style.color = "white";
+    popup.style.padding = "12px 18px";
+    popup.style.borderRadius = "999px";
+    popup.style.fontSize = "15px";
+    popup.style.fontWeight = "bold";
+    popup.style.zIndex = "9999";
+    popup.style.boxShadow = "0 0 20px rgba(0,255,120,0.55)";
+
+    document.body.appendChild(popup);
+
+    setTimeout(() => {
+      popup.remove();
+    }, 3000);
+  }
+
+  setTimeout(showFakePopup, 2500);
+  setInterval(showFakePopup, 9000);
 
   function runAdThen(callback) {
     if (typeof show_10982953 !== "function") {
@@ -282,7 +338,7 @@
     ];
 
     setTimeout(() => {
-      addMessage(replies[Math.floor(Math.random() * replies.length)], "bot");
+      addMessage(replies[randomNumber(0, replies.length - 1)], "bot");
     }, 800);
   }
 
