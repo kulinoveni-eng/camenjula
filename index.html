@@ -11,69 +11,56 @@
   <style>
     * { box-sizing: border-box; }
     body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, sans-serif;
+      margin: 0; min-height: 100vh; font-family: Arial, sans-serif;
       background: linear-gradient(160deg, #0f4c5c, #123043);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      padding: 18px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; padding: 18px;
     }
     .box {
-      width: 100%;
-      max-width: 430px;
+      width: 100%; max-width: 430px;
       background: rgba(255,255,255,0.14);
-      border-radius: 28px;
-      padding: 28px 22px;
-      text-align: center;
+      border-radius: 28px; padding: 24px 20px; text-align: center;
       box-shadow: 0 18px 45px rgba(0,0,0,0.35);
     }
     .pill {
-      background: white;
-      color: #111;
-      display: inline-block;
-      padding: 12px 22px;
-      border-radius: 999px;
-      font-weight: bold;
-      margin-bottom: 25px;
+      background: white; color: #111; display: inline-block;
+      padding: 12px 22px; border-radius: 999px; font-weight: bold;
+      margin-bottom: 18px;
     }
-    .icon { font-size: 70px; }
-    h1 { font-size: 42px; margin: 14px 0 8px; }
-    .sub { font-size: 18px; opacity: .85; }
+    .icon { font-size: 64px; }
+    h1 { font-size: 38px; margin: 12px 0 8px; }
     .online {
-      display: inline-block;
-      margin: 22px 0;
-      padding: 12px 22px;
-      border-radius: 999px;
-      background: rgba(0,255,130,.18);
-      color: #7cff9b;
-      font-size: 20px;
-      font-weight: bold;
+      display: inline-block; margin: 18px 0; padding: 10px 20px;
+      border-radius: 999px; background: rgba(0,255,130,.18);
+      color: #7cff9b; font-size: 18px; font-weight: bold;
     }
-    .text { font-size: 19px; margin: 14px 0; }
-    .time { color: #ffd45a; font-size: 22px; font-weight: bold; margin: 18px 0; }
+    .text { font-size: 18px; margin: 14px 0; }
+    .time { color: #ffd45a; font-size: 20px; font-weight: bold; margin: 16px 0; }
     button {
-      width: 100%;
-      border: 0;
-      border-radius: 20px;
-      padding: 18px;
-      font-size: 25px;
-      font-weight: bold;
-      color: #fff;
+      width: 100%; border: 0; border-radius: 18px; padding: 16px;
+      font-size: 22px; font-weight: bold; color: #fff;
       background: linear-gradient(135deg, #ff1f6d, #ff5b2e);
       box-shadow: 0 0 28px rgba(255,60,90,.65);
+      cursor: pointer;
     }
-    #chatBox { display: none; margin-top: 18px; }
+    #chatBox { display: none; margin-top: 10px; }
+    .chat {
+      height: 320px; overflow-y: auto; text-align: left;
+      background: rgba(0,0,0,.18); border-radius: 18px; padding: 12px;
+      margin-bottom: 12px;
+    }
     .msg {
-      background: rgba(255,255,255,.18);
-      padding: 13px;
-      border-radius: 16px;
-      margin: 10px 0;
-      text-align: left;
-      font-size: 17px;
+      padding: 11px 13px; border-radius: 15px; margin: 9px 0;
+      font-size: 16px; line-height: 1.35;
     }
+    .bot { background: rgba(255,255,255,.18); }
+    .me { background: rgba(255,95,150,.55); text-align: right; }
+    .inputRow { display: flex; gap: 8px; }
+    input {
+      flex: 1; border: 0; border-radius: 14px; padding: 14px;
+      font-size: 16px; outline: none;
+    }
+    .sendBtn { width: 95px; font-size: 16px; padding: 14px; }
   </style>
 </head>
 
@@ -84,30 +71,42 @@
     <div id="mainBox">
       <div class="icon">💬</div>
       <h1>Live Chat</h1>
-      <div class="sub">Connect with someone instantly</div>
-
       <div class="online">🟢 2,352 online now</div>
-
       <div class="text">💋 CamenJulia is waiting for you...</div>
       <div class="time">⌛ Only 18 seconds left</div>
-
-      <button id="startBtn" onclick="startChatRewarded()">Start Chat</button>
+      <button onclick="startChatRewarded()">Start Chat</button>
     </div>
 
     <div id="chatBox">
       <h1>✅ Chat Unlocked</h1>
-      <div class="msg">CamenJulia: Hi baby 😘</div>
-      <div class="msg">CamenJulia: I was waiting for you...</div>
-      <div class="msg">CamenJulia: Send me a message now 💕</div>
-      <div class="time">CamenJulia is typing...</div>
+      <div class="chat" id="messages">
+        <div class="msg bot">CamenJulia: Hi baby 😘</div>
+        <div class="msg bot">CamenJulia: I was waiting for you...</div>
+        <div class="msg bot">CamenJulia: Send me a message now 💕</div>
+      </div>
+
+      <div class="inputRow">
+        <input id="userInput" placeholder="Type message..." />
+        <button class="sendBtn" onclick="sendMessage()">Send</button>
+      </div>
     </div>
   </div>
 
   <script>
     const tg = window.Telegram?.WebApp;
-    if (tg) {
-      tg.ready();
-      tg.expand();
+    if (tg) { tg.ready(); tg.expand(); }
+
+    let sendCount = 0;
+
+    function runAdThen(callback) {
+      if (typeof show_10982953 !== "function") {
+        callback();
+        return;
+      }
+
+      show_10982953("pop")
+        .then(callback)
+        .catch(callback);
     }
 
     function unlockChat() {
@@ -116,18 +115,49 @@
     }
 
     function startChatRewarded() {
-      if (typeof show_10982953 !== "function") {
-        alert("Ad loading... please try again.");
+      runAdThen(unlockChat);
+    }
+
+    function addMessage(text, type) {
+      const messages = document.getElementById("messages");
+      const div = document.createElement("div");
+      div.className = "msg " + type;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function botReply() {
+      const replies = [
+        "CamenJulia: Aww really? 😘",
+        "CamenJulia: Tell me more baby 💕",
+        "CamenJulia: I like chatting with you...",
+        "CamenJulia: Wait… I have something for you 😍",
+        "CamenJulia: Don’t leave yet..."
+      ];
+      const reply = replies[Math.floor(Math.random() * replies.length)];
+      setTimeout(() => addMessage(reply, "bot"), 800);
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+
+      if (!text) {
+        alert("Please type a message first.");
         return;
       }
 
-      show_10982953("pop")
-        .then(() => {
-          unlockChat();
-        })
-        .catch(() => {
-          unlockChat();
-        });
+      addMessage("You: " + text, "me");
+      input.value = "";
+      sendCount++;
+
+      // Smart mode: ad on message 1, 4, 7, 10...
+      if (sendCount === 1 || sendCount % 3 === 1) {
+        runAdThen(botReply);
+      } else {
+        botReply();
+      }
     }
   </script>
 </body>
