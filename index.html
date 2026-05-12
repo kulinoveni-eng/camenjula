@@ -264,7 +264,8 @@
     "is online now 🟢"
   ];
 
-  function showFakePopup() {
+  function showFakePopup() { 
+    if (document.getElementById("chatBox").style.display === "block") return;
     const old = document.getElementById("fakePopup");
     if (old) old.remove();
 
@@ -310,7 +311,9 @@
       .catch(callback);
   }
 
-  function unlockChat() {
+  function unlockChat() { 
+    const oldPopup = document.getElementById("fakePopup");
+if (oldPopup) oldPopup.remove();
     document.getElementById("mainBox").style.display = "none";
     document.getElementById("chatBox").style.display = "block";
   }
